@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using OsuParser.Structures;
 using OsuParser.Structures.Events;
 
@@ -8,7 +10,84 @@ namespace OsuParser.Parsers
     {
         public static SbEvent Parse(string filename)
         {
-            return new SbEvent();
+            var data = new SbEvent();
+
+            using (var reader = new StreamReader(filename))
+            {
+                string currentLine;
+
+                while ((currentLine = reader.ReadLine()) != null)
+                {
+                    // Find Events Section.
+                    if (currentLine == "[Events]")
+                    {
+                        while ((currentLine = reader.ReadLine()) != null)
+                        {
+                            if (currentLine == "[TimingPoints]")
+                                break;
+
+                            // 1st comment.
+                            if (currentLine == "//Background and Video events")
+                            {
+                                while ((currentLine = reader.ReadLine()) != null)
+                                {
+                                    if (currentLine.StartsWith("//"))
+                                        break;
+                                    data.Background = currentLine.Split(',')[2].Replace("\"", string.Empty);
+                                }
+                            }
+
+                            // 2nd comment.
+                            if (currentLine == "//Break Periods")
+                            {
+                                while ((currentLine = reader.ReadLine()) != null)
+                                {
+                                    if (currentLine.StartsWith("//"))
+                                        break;
+                                    var brPeriod = currentLine.Split(',');
+                                    data.Breaks.Add(Tuple.Create(Convert.ToInt32(brPeriod[1]), Convert.ToInt32(brPeriod[2])));
+                                }
+                            }
+
+                            // 3rd ~ 6th comment.
+                            if (currentLine == "//Storyboard Layer 0 (Background)")
+                            {
+                                while ((currentLine = reader.ReadLine()) != null)
+                                {
+                                    if (currentLine == "//Storyboard Sound Samples")
+                                        break;
+                                    if (currentLine.StartsWith("//"))
+                                        continue;
+
+
+                                }
+                            }
+                            
+                            // Last comment.
+                            if (currentLine == "//Storyboard Sound Samples")
+                            {
+                                while ((currentLine = reader.ReadLine()) != null)
+                                {
+                                    if (currentLine.Length == 0)
+                                        break;
+
+                                    var temp = currentLine.Split(',');
+                                    var sampleSound = new SbSound
+                                    {
+                                        Time = Convert.ToInt32(temp[1]),
+                                        Layer = (SbLayer)Convert.ToInt32(temp[2]),
+                                        FileName = temp[3].Replace("\"", string.Empty),
+                                        Volume = Convert.ToInt32(temp[4])
+                                    };
+                                    data.SampleSounds.Add(sampleSound);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return data;
         }
 
         internal static void Writer(StreamWriter writer, SbEvent events)

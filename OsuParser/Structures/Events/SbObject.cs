@@ -4,43 +4,35 @@ using OsuParser.Exceptions;
 
 namespace OsuParser.Structures.Events
 {
-    public class SbObjects
+    public enum Imagetype
     {
-        public enum Imagetype
-        {
-            Sprite,
-            Animation
-        }
+        Sprite,
+        Animation
+    }
 
-        public enum SbLayer
-        {
-            Background,
-            Fail,
-            Pass,
-            Foreground
-        }
+    public enum SbOrigin
+    {
+        TopLeft,
+        TopCentre,
+        TopRight,
+        CentreLeft,
+        Centre,
+        CentreRight,
+        BottomLeft,
+        BottomCentre,
+        BottomRight
+    }
 
-        public enum SbOrigin
-        {
-            TopLeft,
-            TopCentre,
-            TopRight,
-            CentreLeft,
-            Centre,
-            CentreRight,
-            BottomLeft,
-            BottomCentre,
-            BottomRight
-        }
+    public enum SbLooptype
+    {
+        LoopForever,
+        LoopOnce
+    }
 
-        public enum SbLooptype
-        {
-            LoopForever,
-            LoopOnce
-        }
-
+    public class SbObject
+    {
         // Default constructor is made with Sprite Object
-        public SbObjects()
+        public SbObject()
         {
             Type = Imagetype.Sprite;
             Layer = SbLayer.Background;
@@ -58,7 +50,7 @@ namespace OsuParser.Structures.Events
         }
         
         [Description("Only for creating a Sprite object")]
-        public SbObjects(Imagetype type, SbLayer layer, SbOrigin origin, string filePath, int x, int y)
+        public SbObject(Imagetype type, SbLayer layer, SbOrigin origin, string filePath, int x, int y)
         {
             if(type != Imagetype.Sprite)
                 throw new InvalidBeatmapException("SbType not matched");
@@ -74,7 +66,7 @@ namespace OsuParser.Structures.Events
         }
 
         [Description("Only for creating a Animation object")]
-        public SbObjects(Imagetype type, SbLayer layer, SbOrigin origin, string filePath, int x, int y, int frameCount,
+        public SbObject(Imagetype type, SbLayer layer, SbOrigin origin, string filePath, int x, int y, int frameCount,
             int frameDelay, SbLooptype loopType)
         {
             if(type != Imagetype.Animation)
@@ -93,7 +85,7 @@ namespace OsuParser.Structures.Events
             ActionList = new List<SbAction>();
         }
 
-        public SbObjects(SbObjects prevSbObjects)
+        public SbObject(SbObject prevSbObjects)
         {
             Type = prevSbObjects.Type;
             Layer = prevSbObjects.Layer;

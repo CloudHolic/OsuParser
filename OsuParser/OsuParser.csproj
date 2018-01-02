@@ -57,7 +57,8 @@
     <Compile Include="Structures\Editor.cs" />
     <Compile Include="Structures\Events\SbAction.cs" />
     <Compile Include="Structures\Events\SbEvent.cs" />
-    <Compile Include="Structures\Events\SbObjects.cs" />
+    <Compile Include="Structures\Events\SbObject.cs" />
+    <Compile Include="Structures\Events\SbSound.cs" />
     <Compile Include="Structures\General.cs" />
     <Compile Include="Structures\HitObjects\Circle.cs" />
     <Compile Include="Structures\HitObjects\HitObject.cs" />
