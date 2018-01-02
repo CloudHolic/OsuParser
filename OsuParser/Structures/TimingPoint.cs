@@ -39,6 +39,11 @@
             Kiai = prevTimingPoint.Kiai;
         }
 
+        public override string ToString()
+        {
+            return $"{Offset},{MsPerBeat},{Meter},{SampleSet},{SampleIndex},{Volume},{(Inherited ? 1 : 0)},{(Kiai ? 1 : 0)}";
+        }
+
         public double Offset { get; set; }
 
         public double MsPerBeat { get; set; }
@@ -54,10 +59,5 @@
         public bool Kiai { get; set; }
 
         public bool Inherited { get; set; }
-        
-        public override string ToString()
-        {
-            return $"{Offset},{MsPerBeat},{Meter},{SampleSet},{SampleIndex},{Volume},{(Inherited ? 1 : 0)},{(Kiai ? 1 : 0)}";
-        }
     }
 }

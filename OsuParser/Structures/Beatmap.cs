@@ -2,6 +2,7 @@
 using System.IO;
 using OsuParser.Exceptions;
 using OsuParser.Parsers;
+using OsuParser.Structures.Events;
 using OsuParser.Structures.HitObjects;
 
 namespace OsuParser.Structures
@@ -13,7 +14,7 @@ namespace OsuParser.Structures
         public Editor Edit { get; set; }
         public Metadata Meta { get; set; }
         public Difficulty Diff { get; set; }
-        public Event Events { get; set; }
+        public SbEvent Events { get; set; }
         public List<TimingPoint> Timing { get; set; }
         public List<Colours> Color { get; set; }
         public List<HitObject> HitObjects { get; set; }
@@ -24,7 +25,7 @@ namespace OsuParser.Structures
             Edit = new Editor();
             Meta = new Metadata();
             Diff = new Difficulty();
-            Events = new Event();
+            Events = new SbEvent();
             Timing = new List<TimingPoint>();
             Color = new List<Colours>();
             HitObjects = new List<HitObject>();

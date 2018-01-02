@@ -42,6 +42,17 @@ namespace OsuParser.Structures.HitObjects
             EdgeAdditions = new List<Tuple<int, int>>(prevSlider.EdgeAdditions);
         }
 
+        private string TupleListToString(List<Tuple<int, int>> tupleList)
+        {
+            return string.Join("|", tupleList.Select(cur => $"{cur.Item1}:{cur.Item2}"));
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y},{Time},{Type},{HitSound},{SliderType}|{TupleListToString(CurvePoints)},{Repeat},{PixelLength}," +
+                   $"{string.Join("|", EdgeHitsounds)},{TupleListToString(EdgeAdditions)},{ExtraToString()}";
+        }
+
         public char SliderType { get; set; }
 
         public List<Tuple<int, int>> CurvePoints { get; set; }
@@ -53,16 +64,5 @@ namespace OsuParser.Structures.HitObjects
         public List<int> EdgeHitsounds { get; set; }
 
         public List<Tuple<int, int>> EdgeAdditions { get; set; }
-
-        private string TupleListToString(List<Tuple<int, int>> tupleList)
-        {
-            return string.Join("|", tupleList.Select(cur => $"{cur.Item1}:{cur.Item2}"));
-        }
-
-        public override string ToString()
-        {
-            return $"{X},{Y},{Time},{Type},{HitSound},{SliderType}|{TupleListToString(CurvePoints)},{Repeat},{PixelLength}," +
-                $"{string.Join("|", EdgeHitsounds)},{TupleListToString(EdgeAdditions)},{ExtraToString()}";
-        }
     }
 }

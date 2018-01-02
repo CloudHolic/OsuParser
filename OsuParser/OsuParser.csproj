@@ -55,7 +55,9 @@
     <Compile Include="Structures\Colours.cs" />
     <Compile Include="Structures\Difficulty.cs" />
     <Compile Include="Structures\Editor.cs" />
-    <Compile Include="Structures\Event.cs" />
+    <Compile Include="Structures\Events\SbAction.cs" />
+    <Compile Include="Structures\Events\SbEvent.cs" />
+    <Compile Include="Structures\Events\SbObjects.cs" />
     <Compile Include="Structures\General.cs" />
     <Compile Include="Structures\HitObjects\Circle.cs" />
     <Compile Include="Structures\HitObjects\HitObject.cs" />

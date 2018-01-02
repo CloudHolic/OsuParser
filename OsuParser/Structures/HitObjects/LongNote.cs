@@ -24,11 +24,11 @@ namespace OsuParser.Structures.HitObjects
             EndTime = prevLongNote.EndTime;
         }
 
-        public int EndTime { get; set; }
-
         public override string ToString()
         {
             return $"{X},{Y},{Time},{Type},{HitSound},{EndTime}:{ExtraToString()}";
         }
+
+        public int EndTime { get; set; }
     }
 }

@@ -32,18 +32,6 @@ namespace OsuParser.Structures.HitObjects
             Extras = prevHitObject.Extras;
         }
 
-        public int X { get; set; }
-
-        public int Y { get; set; }
-
-        public int Time { get; set; }
-
-        internal int Type { get; set; }
-
-        public int HitSound { get; set; }
-
-        public Tuple<int, int, int, int, string> Extras { get; set; }
-
         protected string ExtraToString()
         {
             return $"{Extras.Item1}:{Extras.Item2}:{Extras.Item3}:{Extras.Item4}:{Extras.Item5}";
@@ -61,5 +49,17 @@ namespace OsuParser.Structures.HitObjects
                 return (this as LongNote)?.ToString() ?? throw new InvalidOperationException();
             throw new InvalidBeatmapException("Unknown HitObject Type");
         }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public int Time { get; set; }
+
+        internal int Type { get; set; }
+
+        public int HitSound { get; set; }
+
+        public Tuple<int, int, int, int, string> Extras { get; set; }
     }
 }
