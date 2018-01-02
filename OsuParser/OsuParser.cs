@@ -47,6 +47,7 @@ namespace OsuParser
                 writer.WriteLine();
 
                 // Events section
+                EventParser.Writer(writer, beatmap.Events);
                 writer.WriteLine();
 
                 // TimingPoints setcion

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OsuParser.Structures.HitObjects
 {
-    class Slider : HitObject
+    public class Slider : HitObject
     {
         public Slider()
         {

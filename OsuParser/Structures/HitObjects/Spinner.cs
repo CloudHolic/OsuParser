@@ -3,7 +3,7 @@
 // Same with longnote, except 'Type' value
 namespace OsuParser.Structures.HitObjects
 {
-    class Spinner : HitObject
+    public class Spinner : HitObject
     {
         public Spinner()
         {

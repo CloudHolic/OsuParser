@@ -2,7 +2,7 @@
 
 namespace OsuParser.Structures.HitObjects
 {
-    class Circle : HitObject
+    public class Circle : HitObject
     {
         public Circle()
         {

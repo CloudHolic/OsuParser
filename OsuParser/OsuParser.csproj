@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parsers\EventParser.cs" />
     <Compile Include="Structures\Beatmap.cs" />
     <Compile Include="OsuParser.cs" />
     <Compile Include="Exceptions\InvalidBeatmapException.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Structures\Colours.cs" />
     <Compile Include="Structures\Difficulty.cs" />
     <Compile Include="Structures\Editor.cs" />
+    <Compile Include="Structures\Event.cs" />
     <Compile Include="Structures\General.cs" />
     <Compile Include="Structures\HitObjects\Circle.cs" />
     <Compile Include="Structures\HitObjects\HitObject.cs" />
