@@ -30,7 +30,7 @@ namespace OsuParser.Parsers
                         data.OverallDifficulty = Convert.ToDouble(currentLine.Split(':')[1]);
 
                     //  AR
-                    if (currentLine.StartsWith("Approachrate:"))
+                    if (currentLine.StartsWith("ApproachRate:"))
                         data.ApproachRate = Convert.ToDouble(currentLine.Split(':')[1]);
 
                     //  Slider Multiplier
@@ -47,6 +47,30 @@ namespace OsuParser.Parsers
             }
 
             return data;
+        }
+
+        internal static void Writer(StreamWriter writer, Difficulty diff)
+        {
+            // Section Header
+            writer.WriteLine("[Difficulty]");
+
+            // HP
+            writer.WriteLine("HPDrainRate:{0}", diff.HPDrainRate);
+
+            // CS
+            writer.WriteLine("CircleSize:{0}", diff.CircleSize);
+
+            // OD
+            writer.WriteLine("OverallDifficulty:{0}", diff.OverallDifficulty);
+
+            // AR
+            writer.WriteLine("ApproachRate:{0}", diff.ApproachRate);
+
+            // Slider Multiplier
+            writer.WriteLine("SliderMultiplier:{0}", diff.SliderMultiplier);
+
+            // Slider Tick Rate
+            writer.WriteLine("SliderTickRate:{0}", diff.SliderTickRate);
         }
     }
 }

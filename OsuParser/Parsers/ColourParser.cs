@@ -1,9 +1,8 @@
-﻿using System;
+﻿using OsuParser.Exceptions;
+using OsuParser.Structures;
+using System;
 using System.Collections.Generic;
 using System.IO;
-
-using OsuParser.Exceptions;
-using OsuParser.Structures;
 
 namespace OsuParser.Parsers
 {
@@ -56,6 +55,21 @@ namespace OsuParser.Parsers
                 data.Add(new Colours());
 
             return data;
+        }
+
+        internal static void Writer(StreamWriter writer, List<Colours> colors)
+        {
+            // If colors' first element's number == 0, then skip
+            if (colors.Count == 1 && colors[0].Number == 0)
+                return;
+
+            // Section Header
+            writer.WriteLine();
+            writer.WriteLine("[Colours]");
+
+            // Each Combo Colors
+            foreach (var color in colors)
+                writer.WriteLine(color.ToString());
         }
     }
 }

@@ -36,5 +36,10 @@
         public int Green { get; set; }
 
         public int Blue { get; set; }
+
+        public override string ToString()
+        {
+            return $"Combo{Number} : {Red},{Green},{Blue}";
+        }
     }
 }

@@ -9,8 +9,8 @@ namespace OsuParser.Structures.HitObjects
             Type = 1;
         }
 
-        public Circle(int x, int y, int time, int type, int hitsound, Tuple<int, int, int, int, string> addition)
-            : base(x, y, time, hitsound, addition)
+        public Circle(int x, int y, int time, int type, int hitsound, Tuple<int, int, int, int, string> extras)
+            : base(x, y, time, hitsound, extras)
         {
             Type = type;
         }
@@ -18,6 +18,11 @@ namespace OsuParser.Structures.HitObjects
         public Circle(Circle prevCircle) : base(prevCircle)
         {
             Type = prevCircle.Type;
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y},{Time},{Type},{HitSound},{ExtraToString()}";
         }
     }
 }

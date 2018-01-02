@@ -65,5 +65,41 @@ namespace OsuParser.Parsers
 
             return data;
         }
+
+        internal static void Writer(StreamWriter writer, Metadata meta)
+        {
+            // Section Header
+            writer.WriteLine("[Metadata]");
+
+            // Title
+            writer.WriteLine("Title:{0}", meta.Title);
+
+            // Unicode Title
+            writer.WriteLine("TitleUnicode:{0}", meta.TitleUnicode);
+
+            // Artist
+            writer.WriteLine("Artist:{0}", meta.Artist);
+
+            // Unicode Artist
+            writer.WriteLine("ArtistUnicode:{0}", meta.ArtistUnicode);
+
+            // Creator
+            writer.WriteLine("Creator:{0}", meta.Creator);
+
+            // Version
+            writer.WriteLine("Version:{0}", meta.Version);
+
+            // Source
+            writer.WriteLine("Source:{0}", meta.Source);
+
+            // Tags
+            writer.WriteLine("Tags:{0}", string.Join(" ", meta.Tags));
+
+            // Beatmap ID
+            writer.WriteLine("BeatmapID:{0}", meta.BeatmapId);
+
+            // Beatmapset ID
+            writer.WriteLine("BeatmapSetID:{0}", meta.BeatmapSetId);
+        }
     }
 }

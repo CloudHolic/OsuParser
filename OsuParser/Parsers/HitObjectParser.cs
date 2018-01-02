@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using OsuParser.Exceptions;
-using OsuParser.Structures;
 using OsuParser.Structures.HitObjects;
 
 namespace OsuParser.Parsers
@@ -18,15 +17,15 @@ namespace OsuParser.Parsers
             foreach (var cur in rawObjects)
             {
                 if ((cur.Type & 1) > 0)
-                    hitObjects.Add(new Circle(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.Addition));
+                    hitObjects.Add(new Circle(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.Extras));
                 else if ((cur.Type & 2) > 0)
                     hitObjects.Add(new Slider(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.SliderType,
                         cur.CurvePoints, cur.Repeat, cur.PixelLength, cur.EdgeHitsounds, cur.EdgeAdditions,
-                        cur.Addition));
+                        cur.Extras));
                 else if ((cur.Type & 8) > 0)
-                    hitObjects.Add(new Spinner(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.EndTime, cur.Addition));
+                    hitObjects.Add(new Spinner(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.EndTime, cur.Extras));
                 else if ((cur.Type & 128) > 0)
-                    hitObjects.Add(new LongNote(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.EndTime, cur.Addition));
+                    hitObjects.Add(new LongNote(cur.X, cur.Y, cur.Time, cur.Type, cur.Hitsound, cur.EndTime, cur.Extras));
                 else
                     throw new InvalidBeatmapException("Unknown HitObject Type");
             }
@@ -107,7 +106,7 @@ namespace OsuParser.Parsers
 
                                 // Addition
                                 var additions = parsed.Last().Split(new[] { ':' }, StringSplitOptions.None);
-                                temp.Addition = Tuple.Create(Convert.ToInt32(additions[0]), Convert.ToInt32(additions[1]), Convert.ToInt32(additions[2]), Convert.ToInt32(additions[3]), additions[4]);
+                                temp.Extras = Tuple.Create(Convert.ToInt32(additions[0]), Convert.ToInt32(additions[1]), Convert.ToInt32(additions[2]), Convert.ToInt32(additions[3]), additions[4]);
                             }
                             // If it's a Mania LN,
                             else
@@ -118,7 +117,7 @@ namespace OsuParser.Parsers
                                 temp.EndTime = Convert.ToInt32(last[0]);
 
                                 // Addition
-                                temp.Addition = Tuple.Create(Convert.ToInt32(last[1]), Convert.ToInt32(last[2]), Convert.ToInt32(last[3]), Convert.ToInt32(last[4]), last[5]);
+                                temp.Extras = Tuple.Create(Convert.ToInt32(last[1]), Convert.ToInt32(last[2]), Convert.ToInt32(last[3]), Convert.ToInt32(last[4]), last[5]);
                             }
 
                             data.Add(temp);
@@ -128,6 +127,16 @@ namespace OsuParser.Parsers
             }
 
             return data;
+        }
+
+        internal static void Writer(StreamWriter writer, List<HitObject> hits)
+        {
+            // Section Header
+            writer.WriteLine("[HitObjects]");
+
+            // Each Hit Objects
+            foreach(var hit in hits)
+                writer.WriteLine(hit.ToString());
         }
     }
 }

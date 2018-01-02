@@ -11,8 +11,8 @@ namespace OsuParser.Structures.HitObjects
             EndTime = 0;
         }
 
-        public Spinner(int x, int y, int time, int type, int hitsound, int endTIme, Tuple<int, int, int, int, string> addition)
-            : base(x, y, time, hitsound, addition)
+        public Spinner(int x, int y, int time, int type, int hitsound, int endTIme, Tuple<int, int, int, int, string> extras)
+            : base(x, y, time, hitsound, extras)
         {
             Type = type;
             EndTime = endTIme;
@@ -25,5 +25,10 @@ namespace OsuParser.Structures.HitObjects
         }
 
         public int EndTime { get; set; }
+
+        public override string ToString()
+        {
+            return $"{X},{Y},{Time},{Type},{HitSound},{EndTime},{ExtraToString()}";
+        }
     }
 }

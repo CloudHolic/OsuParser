@@ -61,7 +61,7 @@
     <Compile Include="Structures\HitObjects\Slider.cs" />
     <Compile Include="Structures\HitObjects\Spinner.cs" />
     <Compile Include="Structures\Metadata.cs" />
-    <Compile Include="Structures\RawHitObject.cs" />
+    <Compile Include="Structures\HitObjects\RawHitObject.cs" />
     <Compile Include="Structures\TimingPoint.cs" />
   </ItemGroup>
   <ItemGroup />

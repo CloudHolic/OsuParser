@@ -41,11 +41,11 @@ namespace OsuParser.Parsers
                                 //  Meter
                                 Meter = Convert.ToInt32(parsed[2]),
 
-                                //  Sample Type
-                                SampleType = Convert.ToInt32(parsed[3]),
-
                                 //  Sample Set
-                                SampleSet = Convert.ToInt32(parsed[4]),
+                                SampleSet = Convert.ToInt32(parsed[3]),
+
+                                //  Sample Index
+                                SampleIndex = Convert.ToInt32(parsed[4]),
 
                                 //  Volume
                                 Volume = Convert.ToInt32(parsed[5]),
@@ -67,6 +67,16 @@ namespace OsuParser.Parsers
                 data.Add(new TimingPoint());
 
             return data;
+        }
+
+        internal static void Writer(StreamWriter writer, List<TimingPoint> timings)
+        {
+            // Section Header
+            writer.WriteLine("[TimingPoints]");
+
+            // Each Timing Points
+            foreach(var timing in timings)
+                writer.WriteLine(timing.ToString());
         }
     }
 }

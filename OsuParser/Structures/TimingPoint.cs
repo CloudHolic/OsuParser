@@ -7,21 +7,21 @@
             Offset = 0;
             MsPerBeat = 0;
             Meter = 4;
-            SampleType = 0;
-            SampleSet = 0;
+            SampleSet = 1;
+            SampleIndex = 0;
             Volume = 30;
             Inherited = false;
             Kiai = false;
         }
 
-        public TimingPoint(double offset, double msperbeat, int meter, int sampletype, int sampleset, int volume,
+        public TimingPoint(double offset, double msperbeat, int meter, int sampleset, int sampleindex, int volume,
             bool inherited, bool kiai)
         {
             Offset = offset;
             MsPerBeat = msperbeat;
             Meter = meter;
-            SampleType = sampletype;
             SampleSet = sampleset;
+            SampleIndex = sampleindex;
             Volume = volume;
             Inherited = inherited;
             Kiai = kiai;
@@ -32,8 +32,8 @@
             Offset = prevTimingPoint.Offset;
             MsPerBeat = prevTimingPoint.MsPerBeat;
             Meter = prevTimingPoint.Meter;
-            SampleType = prevTimingPoint.SampleType;
             SampleSet = prevTimingPoint.SampleSet;
+            SampleIndex = prevTimingPoint.SampleIndex;
             Volume = prevTimingPoint.Volume;
             Inherited = prevTimingPoint.Inherited;
             Kiai = prevTimingPoint.Kiai;
@@ -45,14 +45,19 @@
 
         public int Meter { get; set; }
 
-        public int SampleType { get; set; }
-
         public int SampleSet { get; set; }
+
+        public int SampleIndex { get; set; }
 
         public int Volume { get; set; }
 
         public bool Kiai { get; set; }
 
         public bool Inherited { get; set; }
+        
+        public override string ToString()
+        {
+            return $"{Offset},{MsPerBeat},{Meter},{SampleSet},{SampleIndex},{Volume},{(Inherited ? 1 : 0)},{(Kiai ? 1 : 0)}";
+        }
     }
 }

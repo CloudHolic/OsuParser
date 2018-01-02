@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OsuParser.Structures
+namespace OsuParser.Structures.HitObjects
 {
     internal class RawHitObject
     {
@@ -19,12 +19,12 @@ namespace OsuParser.Structures
             EdgeHitsounds = new List<int>();
             EdgeAdditions = new List<Tuple<int, int>>();
             EndTime = 0;
-            Addition = Tuple.Create(0, 0, 0, 0, string.Empty);
+            Extras = Tuple.Create(0, 0, 0, 0, string.Empty);
         }
 
         internal RawHitObject(int x, int y, int time, int type, int hitsound, char sliderType,
             IEnumerable<Tuple<int, int>> curvePoints, int repeat, float pixelLength, IEnumerable<int> edgeHItsounds,
-            IEnumerable<Tuple<int, int>> edgeAdditions, int endTime, Tuple<int, int, int, int, string> addition)
+            IEnumerable<Tuple<int, int>> edgeAdditions, int endTime, Tuple<int, int, int, int, string> extras)
         {
             X = x;
             Y = y;
@@ -38,7 +38,7 @@ namespace OsuParser.Structures
             EdgeHitsounds = new List<int>(edgeHItsounds);
             EdgeAdditions = new List<Tuple<int, int>>(edgeAdditions);
             EndTime = endTime;
-            Addition = addition;
+            Extras = extras;
         }
 
         internal RawHitObject(RawHitObject prevRawHitObject)
@@ -55,7 +55,7 @@ namespace OsuParser.Structures
             EdgeHitsounds = new List<int>(prevRawHitObject.EdgeHitsounds);
             EdgeAdditions = new List<Tuple<int, int>>(prevRawHitObject.EdgeAdditions);
             EndTime = prevRawHitObject.EndTime;
-            Addition = prevRawHitObject.Addition;
+            Extras = prevRawHitObject.Extras;
         }
 
         internal int X { get; set; }
@@ -82,6 +82,6 @@ namespace OsuParser.Structures
 
         internal int EndTime { get; set; }
 
-        internal Tuple<int, int, int, int, string> Addition { get; set; }
+        internal Tuple<int, int, int, int, string> Extras { get; set; }
     }
 }

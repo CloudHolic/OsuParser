@@ -46,5 +46,26 @@ namespace OsuParser.Parsers
 
             return data;
         }
+
+        internal static void Writer(StreamWriter writer, Editor edit)
+        {
+            // Section Header
+            writer.WriteLine("[Editor]");
+
+            // Bookmarks
+            writer.WriteLine("Bookmakrs: {0}", string.Join(",", edit.Bookmarks));
+
+            // Distance Spacing
+            writer.WriteLine("DistanceSpacing: {0}", edit.DistanceSpacing);
+
+            // Beat Divisor
+            writer.WriteLine("BeatDivisor: {0}", edit.BeatDivisor);
+
+            // Grid Size
+            writer.WriteLine("GridSize: {0}", edit.GridSize);
+
+            // Timeline Zoom
+            writer.WriteLine("TimelineZoom: {0}", edit.TimelineZoom);
+        }
     }
 }

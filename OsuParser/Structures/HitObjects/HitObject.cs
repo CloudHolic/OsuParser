@@ -1,4 +1,5 @@
 ﻿using System;
+using OsuParser.Exceptions;
 
 namespace OsuParser.Structures.HitObjects
 {
@@ -10,16 +11,16 @@ namespace OsuParser.Structures.HitObjects
             Y = 0;
             Time = 0;
             HitSound = 0;
-            Addition = Tuple.Create(0, 0, 0, 0, string.Empty);
+            Extras = Tuple.Create(0, 0, 0, 0, string.Empty);
         }
 
-        protected HitObject(int x, int y, int time, int hitsound, Tuple<int, int, int, int, string> addition)
+        protected HitObject(int x, int y, int time, int hitsound, Tuple<int, int, int, int, string> extras)
         {
             X = x;
             Y = y;
             Time = time;
             HitSound = hitsound;
-            Addition = addition;
+            Extras = extras;
         }
 
         protected HitObject(HitObject prevHitObject)
@@ -28,7 +29,7 @@ namespace OsuParser.Structures.HitObjects
             Y = prevHitObject.Y;
             Time = prevHitObject.Time;
             HitSound = prevHitObject.HitSound;
-            Addition = prevHitObject.Addition;
+            Extras = prevHitObject.Extras;
         }
 
         public int X { get; set; }
@@ -41,6 +42,24 @@ namespace OsuParser.Structures.HitObjects
 
         public int HitSound { get; set; }
 
-        public Tuple<int, int, int, int, string> Addition { get; set; }
+        public Tuple<int, int, int, int, string> Extras { get; set; }
+
+        protected string ExtraToString()
+        {
+            return $"{Extras.Item1}:{Extras.Item2}:{Extras.Item3}:{Extras.Item4}:{Extras.Item5}";
+        }
+
+        public override string ToString()
+        {
+            if ((Type & 1) > 0)
+                return (this as Circle)?.ToString() ?? throw new InvalidOperationException();
+            if ((Type & 2) > 0)
+                return (this as Slider)?.ToString() ?? throw new InvalidOperationException();
+            if ((Type & 8) > 0)
+                return (this as Spinner)?.ToString() ?? throw new InvalidOperationException();
+            if ((Type & 128) > 0)
+                return (this as LongNote)?.ToString() ?? throw new InvalidOperationException();
+            throw new InvalidBeatmapException("Unknown HitObject Type");
+        }
     }
 }
