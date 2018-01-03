@@ -28,7 +28,7 @@
 
         public override string ToString()
         {
-            return $"Sample,{Time},{Layer.ToString()},\"{FileName}\",{Volume}";
+            return $"Sample,{Time},{(int)Layer},\"{FileName}\",{Volume}";
         }
 
         public int Time { get; set; }

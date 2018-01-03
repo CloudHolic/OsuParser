@@ -44,7 +44,7 @@ namespace OsuParser.Parsers
                 while ((currentLine = reader.ReadLine()) != null)
                 {
                     //Finding HitObject section
-                    if (currentLine == "[HitObject]")
+                    if (currentLine == "[HitObjects]")
                     {
                         while ((currentLine = reader.ReadLine()) != null)
                         {

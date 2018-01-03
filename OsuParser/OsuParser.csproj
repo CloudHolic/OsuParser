@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Parsers\EventParser.cs" />
     <Compile Include="Structures\Beatmap.cs" />
-    <Compile Include="OsuParser.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Exceptions\InvalidBeatmapException.cs" />
     <Compile Include="Parsers\ColorParser.cs" />
     <Compile Include="Parsers\DifficultyParser.cs" />

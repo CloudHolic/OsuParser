@@ -16,24 +16,44 @@ namespace OsuParser.Parsers
             using (var reader = new StreamReader(filename))
             {
                 string currentLine;
+                var tempLine = string.Empty;
 
                 while ((currentLine = reader.ReadLine()) != null)
                 {
                     // Find Events Section.
                     if (currentLine == "[Events]")
                     {
-                        while ((currentLine = reader.ReadLine()) != null)
+                        while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                         {
-                            if (currentLine == "[TimingPoints]")
+                            if (tempLine != string.Empty)
+                            {
+                                currentLine = tempLine;
+                                tempLine = string.Empty;
+                            }
+
+                            if (currentLine == "[TimingPoints]" || currentLine == string.Empty)
+                            {
+                                tempLine = currentLine;
                                 break;
+                            }
 
                             // 1st comment.
                             if (currentLine == "//Background and Video events")
                             {
-                                while ((currentLine = reader.ReadLine()) != null)
+                                while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                                 {
+                                    if (tempLine != string.Empty)
+                                    {
+                                        currentLine = tempLine;
+                                        tempLine = string.Empty;
+                                    }
+
                                     if (currentLine.StartsWith("//"))
+                                    {
+                                        tempLine = currentLine;
                                         break;
+                                    }
+
                                     data.Background = currentLine.Split(',')[2].Replace("\"", string.Empty);
                                 }
                             }
@@ -41,10 +61,20 @@ namespace OsuParser.Parsers
                             // 2nd comment.
                             if (currentLine == "//Break Periods")
                             {
-                                while ((currentLine = reader.ReadLine()) != null)
+                                while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                                 {
+                                    if (tempLine != string.Empty)
+                                    {
+                                        currentLine = tempLine;
+                                        tempLine = string.Empty;
+                                    }
+
                                     if (currentLine.StartsWith("//"))
+                                    {
+                                        tempLine = currentLine;
                                         break;
+                                    }
+
                                     var brPeriod = currentLine.Split(',');
                                     data.Breaks.Add(Tuple.Create(Convert.ToInt32(brPeriod[1]), Convert.ToInt32(brPeriod[2])));
                                 }
@@ -53,10 +83,20 @@ namespace OsuParser.Parsers
                             // 3rd ~ 6th comment.
                             if (currentLine == "//Storyboard Layer 0 (Background)")
                             {
-                                while ((currentLine = reader.ReadLine()) != null)
+                                while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                                 {
+                                    if (tempLine != string.Empty)
+                                    {
+                                        currentLine = tempLine;
+                                        tempLine = string.Empty;
+                                    }
+
                                     if (currentLine == "//Storyboard Sound Samples")
+                                    {
+                                        tempLine = currentLine;
                                         break;
+                                    }
+
                                     if (currentLine.StartsWith("//"))
                                         continue;
 
@@ -79,10 +119,19 @@ namespace OsuParser.Parsers
                                         };
 
                                         // Find Actions
-                                        while ((currentLine = reader.ReadLine()) != null)
+                                        while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                                         {
+                                            if (tempLine != string.Empty)
+                                            {
+                                                currentLine = tempLine;
+                                                tempLine = string.Empty;
+                                            }
+
                                             if (!currentLine.StartsWith(" "))
+                                            {
+                                                tempLine = currentLine;
                                                 break;
+                                            }
 
                                             SbAction sbAction;
                                             var depth = currentLine.TakeWhile(c => c == ' ').Count();
@@ -164,10 +213,22 @@ namespace OsuParser.Parsers
                             // Last comment.
                             if (currentLine == "//Storyboard Sound Samples")
                             {
-                                while ((currentLine = reader.ReadLine()) != null)
+                                while (tempLine != string.Empty || (currentLine = reader.ReadLine()) != null)
                                 {
+                                    if (tempLine != string.Empty)
+                                    {
+                                        currentLine = tempLine;
+                                        tempLine = string.Empty;
+                                    }
+
                                     if (currentLine.Length == 0)
+                                    {
+                                        tempLine = currentLine;
                                         break;
+                                    }
+
+                                    if (currentLine.StartsWith("//"))
+                                        continue;
 
                                     var temp = currentLine.Split(',');
                                     var sampleSound = new SbSound
@@ -195,7 +256,8 @@ namespace OsuParser.Parsers
 
             // Background and Video Events
             writer.WriteLine("//Background and Video events");
-            writer.WriteLine($"0,0,\"{events.Background}\",0,0");
+            if(events.Background != string.Empty)
+                writer.WriteLine($"0,0,\"{events.Background}\",0,0");
 
             // Break Periods
             writer.WriteLine("//Break Periods");

@@ -53,7 +53,7 @@ namespace OsuParser.Parsers
             writer.WriteLine("[Editor]");
 
             // Bookmarks
-            writer.WriteLine("Bookmakrs: {0}", string.Join(",", edit.Bookmarks));
+            writer.WriteLine("Bookmarks: {0}", string.Join(",", edit.Bookmarks));
 
             // Distance Spacing
             writer.WriteLine("DistanceSpacing: {0}", edit.DistanceSpacing);

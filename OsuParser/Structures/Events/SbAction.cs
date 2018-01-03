@@ -71,18 +71,18 @@ namespace OsuParser.Structures.Events
                 case Command.Scale:
                 case Command.Rotate:
                     isInt = ParameterIsInt(1);
-                    result += $"{Easing},{StartTime},{EndTime}," + StartParamToString(1, isInt) + EndParamToString(1, isInt);
+                    result += $"{Easing},{StartTime},{EndTime}" + StartParamToString(1, isInt) + EndParamToString(1, isInt);
                     break;
 
                 case Command.Move:
                 case Command.VectorScale:
                     isInt = ParameterIsInt(2);
-                    result += $"{Easing},{StartTime},{EndTime}," + StartParamToString(2, isInt) + EndParamToString(2, isInt);
+                    result += $"{Easing},{StartTime},{EndTime}" + StartParamToString(2, isInt) + EndParamToString(2, isInt);
                     break;
 
                 case Command.Color:
                     isInt = ParameterIsInt(3);
-                    result += $"{Easing},{StartTime},{EndTime}," + StartParamToString(3, isInt) + EndParamToString(3, isInt);
+                    result += $"{Easing},{StartTime},{EndTime}" + StartParamToString(3, isInt) + EndParamToString(3, isInt);
                     break;
 
                 case Command.Parameter:

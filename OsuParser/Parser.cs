@@ -1,13 +1,12 @@
-﻿using System.Globalization;
-using System.IO;
-using OsuParser.Exceptions;
+﻿using System.IO;
+using System.Text;
 using OsuParser.Parsers;
 using OsuParser.Structures;
 using OsuParser.Structures.Events;
 
 namespace OsuParser
 {
-    public static class OsuParser
+    public static class Parser
     {
         public static Beatmap CreateBeatmap()
         {
@@ -41,7 +40,7 @@ namespace OsuParser
 
         public static void SaveOsuFile(string filename, Beatmap beatmap)
         {
-            using (var writer = new StreamWriter(filename))
+            using (var writer = new StreamWriter(filename, false, new UTF8Encoding(false)))
             {
                 // osu file version
                 writer.WriteLine("osu file format v14");
@@ -83,7 +82,7 @@ namespace OsuParser
 
         public static void SaveOsbFile(string filename, Storyboard storyboard)
         {
-            using (var writer = new StreamWriter(filename))
+            using (var writer = new StreamWriter(filename, false, new UTF8Encoding(false)))
             {
                 // Event section only in .osb file.
                 EventParser.Writer(writer, storyboard);
