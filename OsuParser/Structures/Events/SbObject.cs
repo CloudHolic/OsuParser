@@ -4,31 +4,6 @@ using OsuParser.Exceptions;
 
 namespace OsuParser.Structures.Events
 {
-    public enum Imagetype
-    {
-        Sprite,
-        Animation
-    }
-
-    public enum SbOrigin
-    {
-        TopLeft,
-        TopCentre,
-        TopRight,
-        CentreLeft,
-        Centre,
-        CentreRight,
-        BottomLeft,
-        BottomCentre,
-        BottomRight
-    }
-
-    public enum SbLooptype
-    {
-        LoopForever,
-        LoopOnce
-    }
-
     public class SbObject
     {
         // Default constructor is made with Sprite Object
@@ -100,7 +75,15 @@ namespace OsuParser.Structures.Events
 
             ActionList = new List<SbAction>(prevSbObjects.ActionList);
         }
-        
+
+        public override string ToString()
+        {
+            if (Type == Imagetype.Sprite)
+                return $"Sprite,{Layer.ToString()},{Origin.ToString()},\"{FilePath}\",{X},{Y}";
+            // else if (Type == Imagetype.Animation)
+            return $"Animation,{Layer.ToString()},{Origin.ToString()},\"{FilePath}\",{X},{Y},{FrameCount},{FrameDelay},{Looptype.ToString()}";
+        }
+
         public Imagetype Type { get; set; }
 
         public SbLayer Layer { get; set; }

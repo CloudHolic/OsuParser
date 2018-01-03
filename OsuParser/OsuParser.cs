@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using OsuParser.Exceptions;
 using OsuParser.Parsers;
 using OsuParser.Structures;
+using OsuParser.Structures.Events;
 
 namespace OsuParser
 {
@@ -12,9 +14,19 @@ namespace OsuParser
             return new Beatmap();
         }
 
+        public static Storyboard CreateStoryboard()
+        {
+            return new Storyboard();
+        }
+
         public static Beatmap CopyBeatmap(Beatmap prevBeatmap)
         {
             return new Beatmap(prevBeatmap);
+        }
+
+        public static Storyboard CopyStoryboard(Storyboard prevStoryboard)
+        {
+            return new Storyboard(prevStoryboard);
         }
 
         public static Beatmap LoadOsuFile(string filename)
@@ -22,7 +34,12 @@ namespace OsuParser
             return new Beatmap(filename);
         }
 
-        public static void SaveBeatmap(string filename, Beatmap beatmap)
+        public static Storyboard LoadOsbFile(string filename)
+        {
+            return new Storyboard(filename);
+        }
+
+        public static void SaveOsuFile(string filename, Beatmap beatmap)
         {
             using (var writer = new StreamWriter(filename))
             {
@@ -60,6 +77,16 @@ namespace OsuParser
 
                 // HitObjects section
                 HitObjectParser.Writer(writer, beatmap.HitObjects);
+                writer.WriteLine();
+            }
+        }
+
+        public static void SaveOsbFile(string filename, Storyboard storyboard)
+        {
+            using (var writer = new StreamWriter(filename))
+            {
+                // Event section only in .osb file.
+                EventParser.Writer(writer, storyboard);
                 writer.WriteLine();
             }
         }

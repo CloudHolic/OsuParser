@@ -2,7 +2,7 @@
 {
     public class Difficulty
     {
-        public Difficulty()
+        internal Difficulty()
         {
             HPDrainRate = 5;
             CircleSize = 4;
@@ -12,7 +12,7 @@
             SliderTickRate = 0;
         }
 
-        public Difficulty(double hp, double cs, double od, double ar, double multiplier, double tickrate)
+        internal Difficulty(double hp, double cs, double od, double ar, double multiplier, double tickrate)
         {
             HPDrainRate = hp;
             CircleSize = cs;
@@ -22,7 +22,7 @@
             SliderTickRate = tickrate;
         }
 
-        public Difficulty(Difficulty prevDifficulty)
+        internal Difficulty(Difficulty prevDifficulty)
         {
             HPDrainRate = prevDifficulty.HPDrainRate;
             CircleSize = prevDifficulty.CircleSize;

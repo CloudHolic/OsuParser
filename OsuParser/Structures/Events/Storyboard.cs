@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using OsuParser.Exceptions;
+using OsuParser.Parsers;
 
 namespace OsuParser.Structures.Events
 {
@@ -11,9 +14,9 @@ namespace OsuParser.Structures.Events
         Foreground
     }
 
-    public class SbEvent
+    public class Storyboard
     {
-        public SbEvent()
+        internal Storyboard()
         {
             Background = String.Empty;
             Breaks = new List<Tuple<int, int>>();
@@ -21,7 +24,25 @@ namespace OsuParser.Structures.Events
             SampleSounds = new List<SbSound>();
         }
 
-        public SbEvent(string background, IEnumerable<Tuple<int, int>> breaks, IEnumerable<SbObject> sbObjects, IEnumerable<SbSound> sounds)
+        internal Storyboard(string filename)
+        {
+            //  Load, and parse.
+            if (File.Exists(filename))
+            {
+                if (filename.Split('.')[filename.Split('.').Length - 1] != "osb")
+                    throw new InvalidBeatmapException("Unknown file format.");
+
+                var temp = EventParser.Parse(filename);
+                Background = temp.Background;
+                Breaks = new List<Tuple<int, int>>(temp.Breaks);
+                SbObjects = new List<SbObject>(temp.SbObjects);
+                SampleSounds = new List<SbSound>(temp.SampleSounds);
+            }
+            else
+                throw new FileNotFoundException();
+        }
+
+        internal Storyboard(string background, IEnumerable<Tuple<int, int>> breaks, IEnumerable<SbObject> sbObjects, IEnumerable<SbSound> sounds)
         {
             Background = background;
             Breaks = new List<Tuple<int, int>>(breaks);
@@ -29,7 +50,7 @@ namespace OsuParser.Structures.Events
             SampleSounds = new List<SbSound>(sounds);
         }
 
-        public SbEvent(SbEvent prevEvent)
+        internal Storyboard(Storyboard prevEvent)
         {
             Background = prevEvent.Background;
             Breaks = new List<Tuple<int, int>>(prevEvent.Breaks);

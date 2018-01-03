@@ -4,7 +4,7 @@ namespace OsuParser.Structures
 {
     public class Editor
     {
-        public Editor()
+        internal Editor()
         {
             Bookmarks = new List<int>();
             DistanceSpacing = 0;
@@ -13,7 +13,7 @@ namespace OsuParser.Structures
             TimelineZoom = 1;
         }
 
-        public Editor(List<int> bookmarks, double distance, int beat, int grid, double timeline)
+        internal Editor(List<int> bookmarks, double distance, int beat, int grid, double timeline)
         {
             Bookmarks = bookmarks;
             DistanceSpacing = distance;
@@ -22,7 +22,7 @@ namespace OsuParser.Structures
             TimelineZoom = timeline;
         }
 
-        public Editor(Editor prevEditor)
+        internal Editor(Editor prevEditor)
         {
             Bookmarks = new List<int>(prevEditor.Bookmarks);
             DistanceSpacing = prevEditor.DistanceSpacing;

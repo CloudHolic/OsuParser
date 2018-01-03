@@ -4,7 +4,7 @@ namespace OsuParser.Structures
 {
     public class Metadata
     {
-        public Metadata()
+        internal Metadata()
         {
             Title = null;
             TitleUnicode = null;
@@ -19,7 +19,7 @@ namespace OsuParser.Structures
             BeatmapSetId = -1;
         }
 
-        public Metadata(string title, string utitle, string artist, string uartist, string creator, string ver,
+        internal Metadata(string title, string utitle, string artist, string uartist, string creator, string ver,
             string source, List<string> tags, int mapId, int mapsetId)
         {
             Title = title;
@@ -35,7 +35,7 @@ namespace OsuParser.Structures
             BeatmapSetId = mapsetId;
         }
 
-        public Metadata(Metadata prevMetadata)
+        internal Metadata(Metadata prevMetadata)
         {
             Title = prevMetadata.Title;
             TitleUnicode = prevMetadata.TitleUnicode;

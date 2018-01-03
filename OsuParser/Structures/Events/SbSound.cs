@@ -26,6 +26,11 @@
             Volume = prevSound.Volume;
         }
 
+        public override string ToString()
+        {
+            return $"Sample,{Time},{Layer.ToString()},\"{FileName}\",{Volume}";
+        }
+
         public int Time { get; set; }
 
         public SbLayer Layer { get; set; }

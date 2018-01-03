@@ -2,7 +2,7 @@
 {
     public class General
     {
-        public General()
+        internal General()
         {
             AudioFilename = null;
             AudioLeadIn = 0;
@@ -16,7 +16,7 @@
             WidescreenStoryboard = false;
         }
 
-        public General(string audio, int leadin, int preview, bool countdown, string sampleset,
+        internal General(string audio, int leadin, int preview, bool countdown, string sampleset,
             double stack, int mode, bool letterbox, bool special, bool widescreen)
         {
             AudioFilename = audio;
@@ -31,7 +31,7 @@
             WidescreenStoryboard = widescreen;
         }
 
-        public General(General prevGeneral)
+        internal General(General prevGeneral)
         {
             AudioFilename = prevGeneral.AudioFilename;
             AudioLeadIn = prevGeneral.AudioLeadIn;

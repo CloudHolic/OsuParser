@@ -14,7 +14,7 @@ namespace OsuParser.Structures
         public Editor Edit { get; set; }
         public Metadata Meta { get; set; }
         public Difficulty Diff { get; set; }
-        public SbEvent Events { get; set; }
+        public Storyboard Events { get; set; }
         public List<TimingPoint> Timing { get; set; }
         public List<Colours> Color { get; set; }
         public List<HitObject> HitObjects { get; set; }
@@ -25,7 +25,7 @@ namespace OsuParser.Structures
             Edit = new Editor();
             Meta = new Metadata();
             Diff = new Difficulty();
-            Events = new SbEvent();
+            Events = new Storyboard();
             Timing = new List<TimingPoint>();
             Color = new List<Colours>();
             HitObjects = new List<HitObject>();
@@ -46,6 +46,7 @@ namespace OsuParser.Structures
                 Edit = EditorParser.Parse(filename);
                 Meta = MetadataParser.Parse(filename);
                 Diff = DifficultyParser.Parse(filename);
+                Events = EventParser.Parse(filename);
                 Timing = TimingPointsParser.Parse(filename);
                 Color = ColourParser.Parse(filename);
                 HitObjects = HitObjectParser.Parse(filename);
@@ -54,12 +55,26 @@ namespace OsuParser.Structures
                 throw new FileNotFoundException();
         }
 
+        internal Beatmap(General gen, Editor edit, Metadata meta, Difficulty diff, Storyboard events,
+            List<TimingPoint> timings, List<Colours> colors, List<HitObject> hitObjects)
+        {
+            Gen = gen;
+            Edit = edit;
+            Meta = meta;
+            Diff = diff;
+            Events = events;
+            Timing = new List<TimingPoint>(timings);
+            Color = new List<Colours>(colors);
+            HitObjects = new List<HitObject>(hitObjects);
+        }
+
         internal Beatmap(Beatmap prevBeatmapInfo)
         {
             Gen = new General(prevBeatmapInfo.Gen);
             Edit = new Editor(prevBeatmapInfo.Edit);
             Meta = new Metadata(prevBeatmapInfo.Meta);
             Diff = new Difficulty(prevBeatmapInfo.Diff);
+            Events = new Storyboard(prevBeatmapInfo.Events);
 
             Timing = new List<TimingPoint>();
             foreach (var cur in prevBeatmapInfo.Timing)
