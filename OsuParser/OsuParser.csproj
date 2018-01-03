@@ -44,7 +44,7 @@
     <Compile Include="Structures\Beatmap.cs" />
     <Compile Include="OsuParser.cs" />
     <Compile Include="Exceptions\InvalidBeatmapException.cs" />
-    <Compile Include="Parsers\ColourParser.cs" />
+    <Compile Include="Parsers\ColorParser.cs" />
     <Compile Include="Parsers\DifficultyParser.cs" />
     <Compile Include="Parsers\EditorParser.cs" />
     <Compile Include="Parsers\GeneralParser.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="Parsers\MetadataParser.cs" />
     <Compile Include="Parsers\TimingPointsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structures\Colours.cs" />
+    <Compile Include="Structures\Colors.cs" />
     <Compile Include="Structures\Difficulty.cs" />
     <Compile Include="Structures\Editor.cs" />
     <Compile Include="Structures\Events\EnumExtensions.cs" />

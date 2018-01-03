@@ -1,8 +1,8 @@
 ﻿namespace OsuParser.Structures
 {
-    public class Colours
+    public class Colors
     {
-        public Colours()
+        public Colors()
         {
             Number = 0;
 
@@ -11,7 +11,7 @@
             Blue = 0;
         }
 
-        public Colours(int num, int r, int g, int b)
+        public Colors(int num, int r, int g, int b)
         {
             Number = num;
 
@@ -20,7 +20,7 @@
             Blue = b;
         }
 
-        public Colours(Colours prevColours)
+        public Colors(Colors prevColours)
         {
             Number = prevColours.Number;
 

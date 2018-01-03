@@ -16,7 +16,7 @@ namespace OsuParser.Structures
         public Difficulty Diff { get; set; }
         public Storyboard Events { get; set; }
         public List<TimingPoint> Timing { get; set; }
-        public List<Colours> Color { get; set; }
+        public List<Colors> Color { get; set; }
         public List<HitObject> HitObjects { get; set; }
 
         internal Beatmap()
@@ -27,11 +27,11 @@ namespace OsuParser.Structures
             Diff = new Difficulty();
             Events = new Storyboard();
             Timing = new List<TimingPoint>();
-            Color = new List<Colours>();
+            Color = new List<Colors>();
             HitObjects = new List<HitObject>();
 
             Timing.Add(new TimingPoint());
-            Color.Add(new Colours());
+            Color.Add(new Colors());
         }
 
         internal Beatmap(string filename)
@@ -48,7 +48,7 @@ namespace OsuParser.Structures
                 Diff = DifficultyParser.Parse(filename);
                 Events = EventParser.Parse(filename);
                 Timing = TimingPointsParser.Parse(filename);
-                Color = ColourParser.Parse(filename);
+                Color = ColorParser.Parse(filename);
                 HitObjects = HitObjectParser.Parse(filename);
             }
             else
@@ -56,7 +56,7 @@ namespace OsuParser.Structures
         }
 
         internal Beatmap(General gen, Editor edit, Metadata meta, Difficulty diff, Storyboard events,
-            List<TimingPoint> timings, List<Colours> colors, List<HitObject> hitObjects)
+            List<TimingPoint> timings, List<Colors> colors, List<HitObject> hitObjects)
         {
             Gen = gen;
             Edit = edit;
@@ -64,7 +64,7 @@ namespace OsuParser.Structures
             Diff = diff;
             Events = events;
             Timing = new List<TimingPoint>(timings);
-            Color = new List<Colours>(colors);
+            Color = new List<Colors>(colors);
             HitObjects = new List<HitObject>(hitObjects);
         }
 
@@ -80,9 +80,9 @@ namespace OsuParser.Structures
             foreach (var cur in prevBeatmapInfo.Timing)
                 Timing.Add(new TimingPoint(cur));
 
-            Color = new List<Colours>();
+            Color = new List<Colors>();
             foreach (var cur in prevBeatmapInfo.Color)
-                Color.Add(new Colours(cur));
+                Color.Add(new Colors(cur));
 
             HitObjects = new List<HitObject>();
             foreach (var cur in prevBeatmapInfo.HitObjects)

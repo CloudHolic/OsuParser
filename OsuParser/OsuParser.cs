@@ -72,7 +72,7 @@ namespace OsuParser
                 writer.WriteLine();
 
                 // Colours section
-                ColourParser.Writer(writer, beatmap.Color);
+                ColorParser.Writer(writer, beatmap.Color);
                 writer.WriteLine();
 
                 // HitObjects section

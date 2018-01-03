@@ -6,11 +6,11 @@ using System.IO;
 
 namespace OsuParser.Parsers
 {
-    public static class ColourParser
+    public static class ColorParser
     {
-        public static List<Colours> Parse(string filename)
+        public static List<Colors> Parse(string filename)
         {
-            var data = new List<Colours>();
+            var data = new List<Colors>();
 
             using (var reader = new StreamReader(filename))
             {
@@ -30,7 +30,7 @@ namespace OsuParser.Parsers
                             if (parsed.Length != 3)
                                 throw new InvalidBeatmapException("Wrong Colour Found.");
 
-                            var temp = new Colours
+                            var temp = new Colors
                             {
                                 //  Number
                                 Number = Convert.ToInt32(currentLine.Substring(5).Split(':')[0].Trim()),
@@ -52,12 +52,12 @@ namespace OsuParser.Parsers
             }
 
             if (data.Count == 0)
-                data.Add(new Colours());
+                data.Add(new Colors());
 
             return data;
         }
 
-        internal static void Writer(StreamWriter writer, List<Colours> colors)
+        internal static void Writer(StreamWriter writer, List<Colors> colors)
         {
             // If colors' first element's number == 0, then skip
             if (colors.Count == 1 && colors[0].Number == 0)
