@@ -12,7 +12,6 @@ namespace OsuParser.Exceptions
 
         public InvalidBeatmapException(string message) : base(message)
         {
-
         }
 
         public InvalidBeatmapException(string message, Exception innerException) : base(message, innerException)

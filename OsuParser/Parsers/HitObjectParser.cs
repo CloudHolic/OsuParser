@@ -98,7 +98,7 @@ namespace OsuParser.Parsers
                             }
 
                             // If it's a circle or slider or spinner,
-                            if (parsed.Length != 6 || parsed.Length == 6 && parsed[5].Split(new[] { ':' }, StringSplitOptions.None).Length == 5)
+                            if (parsed.Length != 6 || (parsed.Length == 6 && parsed[5].Split(new[] { ':' }, StringSplitOptions.None).Length == 5))
                             {
                                 // EndTime
                                 if (parsed.Length == 7)
