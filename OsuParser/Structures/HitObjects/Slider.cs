@@ -18,7 +18,7 @@ namespace OsuParser.Structures.HitObjects
         }
 
         public Slider(int x, int y, int time, int type, int hitsound, char sliderType,
-            IEnumerable<Tuple<int, int>> curvePoints, int repeat, float pixelLength, IEnumerable<int> edgeHItsounds,
+            IEnumerable<Tuple<int, int>> curvePoints, int repeat, double pixelLength, IEnumerable<int> edgeHItsounds,
             IEnumerable<Tuple<int, int>> edgeAdditions, Tuple<int, int, int, int, string> extras)
             : base(x, y, time, hitsound, extras)
         {
@@ -59,7 +59,7 @@ namespace OsuParser.Structures.HitObjects
 
         public int Repeat { get; set; }
 
-        public float PixelLength { get; set; }
+        public double PixelLength { get; set; }
 
         public List<int> EdgeHitsounds { get; set; }
 

@@ -74,7 +74,7 @@ namespace OsuParser.Structures.HitObjects
 
         internal int Repeat { get; set; }
 
-        internal float PixelLength { get; set; }
+        internal double PixelLength { get; set; }
 
         internal List<int> EdgeHitsounds { get; set; }
 

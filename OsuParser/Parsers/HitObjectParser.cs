@@ -86,7 +86,7 @@ namespace OsuParser.Parsers
                                 temp.Repeat = Convert.ToInt32(parsed[6]);
 
                                 // PixelLength
-                                temp.PixelLength = Convert.ToInt32(parsed[7]);
+                                temp.PixelLength = Convert.ToDouble(parsed[7]);
 
                                 if (parsed.Length == 11)
                                 {
