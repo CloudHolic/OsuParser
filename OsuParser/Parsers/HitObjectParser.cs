@@ -52,7 +52,7 @@ namespace OsuParser.Parsers
                                 break;
 
                             var parsed = currentLine.Split(',');
-                            if (!new[] { 6, 7, 11 }.Contains(parsed.Length))
+                            if (!new[] { 6, 7, 8, 11 }.Contains(parsed.Length))
                                 throw new InvalidBeatmapException("Wrong HitObject Found.");
 
                             var temp = new RawHitObject
@@ -73,7 +73,7 @@ namespace OsuParser.Parsers
                                 Hitsound = Convert.ToInt32(parsed[4]),
                             };
 
-                            if (parsed.Length == 11)
+                            if (parsed.Length >= 8)
                             {
                                 // SliderType
                                 temp.SliderType = parsed[5].Split('|')[0].ToCharArray()[0];
@@ -88,36 +88,48 @@ namespace OsuParser.Parsers
                                 // PixelLength
                                 temp.PixelLength = Convert.ToInt32(parsed[7]);
 
-                                // EdgeHitSounds
-                                foreach (var cur in parsed[8].Split('|'))
-                                    temp.EdgeHitsounds.Add(Convert.ToInt32(cur));
+                                if (parsed.Length == 11)
+                                {
+                                    // EdgeHitSounds
+                                    foreach (var cur in parsed[8].Split('|'))
+                                        temp.EdgeHitsounds.Add(Convert.ToInt32(cur));
 
-                                // EdgeAdditions
-                                foreach (var cur in parsed[9].Split('|'))
-                                    temp.EdgeAdditions.Add(Tuple.Create(Convert.ToInt32(cur.Split(':')[0]), Convert.ToInt32(cur.Split(':')[1])));
+                                    // EdgeAdditions
+                                    foreach (var cur in parsed[9].Split('|'))
+                                        temp.EdgeAdditions.Add(Tuple.Create(Convert.ToInt32(cur.Split(':')[0]),
+                                            Convert.ToInt32(cur.Split(':')[1])));
+                                }
                             }
 
-                            // If it's a circle or slider or spinner,
-                            if (parsed.Length != 6 || (parsed.Length == 6 && parsed[5].Split(new[] { ':' }, StringSplitOptions.None).Length == 5))
+                            if (parsed.Length != 8)
                             {
-                                // EndTime
-                                if (parsed.Length == 7)
-                                    temp.EndTime = Convert.ToInt32(parsed[5]);
+                                // If it's a circle or slider or spinner,
+                                if (parsed.Length != 6 ||
+                                    (parsed.Length == 6 &&
+                                     parsed[5].Split(new[] {':'}, StringSplitOptions.None).Length == 5))
+                                {
+                                    // EndTime
+                                    if (parsed.Length == 7)
+                                        temp.EndTime = Convert.ToInt32(parsed[5]);
 
-                                // Addition
-                                var additions = parsed.Last().Split(new[] { ':' }, StringSplitOptions.None);
-                                temp.Extras = Tuple.Create(Convert.ToInt32(additions[0]), Convert.ToInt32(additions[1]), Convert.ToInt32(additions[2]), Convert.ToInt32(additions[3]), additions[4]);
-                            }
-                            // If it's a Mania LN,
-                            else
-                            {
-                                var last = parsed.Last().Split(new[] { ':' }, StringSplitOptions.None);
+                                    // Addition
+                                    var additions = parsed.Last().Split(new[] {':'}, StringSplitOptions.None);
+                                    temp.Extras = Tuple.Create(Convert.ToInt32(additions[0]),
+                                        Convert.ToInt32(additions[1]), Convert.ToInt32(additions[2]),
+                                        Convert.ToInt32(additions[3]), additions[4]);
+                                }
+                                // If it's a Mania LN,
+                                else
+                                {
+                                    var last = parsed.Last().Split(new[] {':'}, StringSplitOptions.None);
 
-                                // EndTime
-                                temp.EndTime = Convert.ToInt32(last[0]);
+                                    // EndTime
+                                    temp.EndTime = Convert.ToInt32(last[0]);
 
-                                // Addition
-                                temp.Extras = Tuple.Create(Convert.ToInt32(last[1]), Convert.ToInt32(last[2]), Convert.ToInt32(last[3]), Convert.ToInt32(last[4]), last[5]);
+                                    // Addition
+                                    temp.Extras = Tuple.Create(Convert.ToInt32(last[1]), Convert.ToInt32(last[2]),
+                                        Convert.ToInt32(last[3]), Convert.ToInt32(last[4]), last[5]);
+                                }
                             }
 
                             data.Add(temp);
