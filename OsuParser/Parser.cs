@@ -30,7 +30,7 @@ namespace OsuParser
 
         public static Beatmap LoadOsuFile(string filename)
         {
-            return new Beatmap(filename);
+            return GetVersion(filename) < 12 ? null : new Beatmap(filename);
         }
 
         public static Storyboard LoadOsbFile(string filename)
@@ -118,6 +118,21 @@ namespace OsuParser
             // Event section only in .osb file.
             EventParser.Writer(writer, storyboard);
             writer.WriteLine();
+        }
+
+        private static int GetVersion(string fileName)
+        {
+            var result = 0;
+
+            using (var reader = new StreamReader(fileName))
+            {
+                // Read the first line to get version.
+                var versionLine = reader.ReadLine();
+                if (versionLine != null && !versionLine.StartsWith("osu file foramt"))
+                    int.TryParse(versionLine.Split('v')[1], out result);
+            }
+
+            return result;
         }
     }
 }
